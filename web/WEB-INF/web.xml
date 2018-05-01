@@ -4,9 +4,17 @@
         <servlet-name>AppLogin</servlet-name>
         <servlet-class>AppLogin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetBasicInfo</servlet-name>
+        <servlet-class>GetBasicInfo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AppLogin</servlet-name>
         <url-pattern>/AppLogin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetBasicInfo</servlet-name>
+        <url-pattern>/GetBasicInfo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
