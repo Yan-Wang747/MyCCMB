@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 
-import java.io.IOException;
+import java.io.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 import patientinfo.BasicInfo;
 import java.sql.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.core.*;
 
 /**
  *
@@ -25,43 +27,56 @@ public class GetBasicInfo extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private String sql = "SELECT * FROM BasicInfo";
-    private DBAccess dbAccess;
+    private final String sql = "SELECT * FROM BasicInfo";
     
-    private BasicInfo getBasicInfo(String userID) {
+    private String getBasicInfoJSON(String userID) {
+        String basicInfoJSON = null;
+        
         try 
         {
             DBAccess dbAccess = new DBAccess();
             ResultSet rs = dbAccess.executeQuery(sql);
 
+            ObjectMapper mapper = new ObjectMapper();
+            BasicInfo basicInfo = null;
+            
             while(rs.next()) {
                 if(rs.getString("email").equals(userID)) {
-                    System.out.println(rs.getString("email"));
-                    System.out.println(rs.getString("first_name"));
-                    System.out.println(rs.getString("last_name"));
-                    System.out.println(rs.getString("gender"));
-                    System.out.println(rs.getString("date_of_birth"));
-                    System.out.println(rs.getString("phone"));
+                    basicInfo = new BasicInfo(rs.getString("first_name"), 
+                                                rs.getString("last_name"),
+                                                rs.getString("gender"),
+                                                rs.getString("date_of_birth"),
+                                                rs.getString("phone"), 
+                                                rs.getString("email"));
+                    break;
                 }
             }
             
+            basicInfoJSON = mapper.writeValueAsString(basicInfo);
+
             dbAccess.dispose();
-        } catch (SQLException e) {
-            System.err.println("sql error: " + e.getMessage());
+        } catch (SQLException | JsonProcessingException e) {
+            System.err.println("sql error/Json error: " + e.getMessage());
         } 
         
-        return null;
+        return basicInfoJSON;
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         HttpSession session = request.getSession(false);
         if(session == null) {
             response.sendError(403);
+            
+            return;
         }
         
         String userID = (String)session.getAttribute("userID");
-        getBasicInfo(userID);
+        String JSONBody = getBasicInfoJSON(userID);
+        PrintWriter bodyWriter = response.getWriter();
+
+        bodyWriter.print(JSONBody);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
