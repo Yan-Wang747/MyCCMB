@@ -65,13 +65,13 @@ public class GetBasicInfo extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        HttpSession session = request.getSession(false);
-        if(session == null) {
+        if(!request.isRequestedSessionIdValid()) {
             response.sendError(403);
             
             return;
         }
         
+        HttpSession session = request.getSession();
         String userID = (String)session.getAttribute("userID");
         String JSONBody = getBasicInfoJSON(userID);
         PrintWriter bodyWriter = response.getWriter();
