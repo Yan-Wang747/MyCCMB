@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import database.DBAccess;
 import java.io.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
@@ -34,8 +35,8 @@ public class GetBasicInfo extends HttpServlet {
         
         try 
         {
-            DBAccess dbAccess = new DBAccess();
-            ResultSet rs = dbAccess.executeQuery(sql);
+            DBAccess db = new DBAccess();
+            ResultSet rs = db.executeQuery(sql);
 
             ObjectMapper mapper = new ObjectMapper();
             BasicInfo basicInfo = null;
@@ -54,7 +55,7 @@ public class GetBasicInfo extends HttpServlet {
             
             basicInfoJSON = mapper.writeValueAsString(basicInfo);
 
-            dbAccess.dispose();
+            db.dispose();
         } catch (SQLException | JsonProcessingException e) {
             System.err.println("sql error/Json error: " + e.getMessage());
         } 

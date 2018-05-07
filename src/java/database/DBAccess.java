@@ -1,3 +1,5 @@
+package database;
+
 import java.sql.*;
 
 /*
@@ -16,6 +18,7 @@ public class DBAccess {
     private static final String pswd= "12345678";
     private static final String dbURL = "jdbc:mysql://localhost/users?useLegacyDatetimeCode=false&serverTimezone=Australia/Melbourne";
     private Connection conn;
+    
     
     static {
         try {

@@ -8,8 +8,9 @@
             <file>file:/Users/student/Desktop/MyCCMB/src/java/GetBasicInfo.java</file>
             <file>file:/Users/student/Desktop/MyCCMB/web/WEB-INF/web.xml</file>
             <file>file:/Users/student/Desktop/MyCCMB/src/java/AuthInfo.java</file>
+            <file>file:/Users/student/Desktop/MyCCMB/src/java/database/BasicInfoField.java</file>
             <file>file:/Users/student/Desktop/MyCCMB/src/java/AppLogin.java</file>
-            <file>file:/Users/student/Desktop/MyCCMB/web/META-INF/context.xml</file>
+            <file>file:/Users/student/Desktop/MyCCMB/src/java/database/DBAccess.java</file>
         </group>
     </open-files>
 </project-private>

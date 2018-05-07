@@ -11,15 +11,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.core.*;
-
+import database.*;
+import java.util.HashMap;
 /**
  *
  * @author student
  */
 public class UpdateBasicInfo extends HttpServlet {
 
+    private String baseSQL = "UPDATE BasicInfo SET ";
+    private HashMap<String, String> dataBaseFieldNames = new HashMap();
+    
+    @Override
+    public void init(){
+        dataBaseFieldNames.put("FirstName", "first_name");
+        dataBaseFieldNames.put("LastName", "last_name");
+        dataBaseFieldNames.put("Gender", "gender");
+        dataBaseFieldNames.put("DateOfBirth", "date_of_birth");
+        dataBaseFieldNames.put("Phone", "phone");
+        dataBaseFieldNames.put("Email", "email");
+        
+    }
+    
+    
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -58,6 +75,11 @@ public class UpdateBasicInfo extends HttpServlet {
         response.sendError(400);
     }
     
+    void update(BasicInfoField updateField) {
+        String sql = baseSQL + dataBaseFieldNames.get(updateField.field) + " = " + updateField.newValue;
+        DBAccess db = new DBAccess();
+    }
+    
     @Override
     protected void doPut(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -74,7 +96,9 @@ public class UpdateBasicInfo extends HttpServlet {
         
         String JSONBody = reader.readLine();
         ObjectMapper mapper = new ObjectMapper();
-
+        
+        BasicInfoField updateField = mapper.readValue(JSONBody, BasicInfoField.class);
+        update(updateField);
     }
 
     /**

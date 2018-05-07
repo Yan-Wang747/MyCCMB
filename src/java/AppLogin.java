@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 
+import database.DBAccess;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
