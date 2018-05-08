@@ -15,6 +15,7 @@ import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.core.*;
 import database.*;
 import java.util.HashMap;
+import java.sql.*;
 /**
  *
  * @author student
@@ -76,8 +77,14 @@ public class UpdateBasicInfo extends HttpServlet {
     }
     
     void update(BasicInfoField updateField) {
-        String sql = baseSQL + dataBaseFieldNames.get(updateField.field) + " = " + updateField.newValue;
-        DBAccess db = new DBAccess();
+        String sql = baseSQL + dataBaseFieldNames.get(updateField.field) + "=" + "'" + updateField.newValue + "'";
+        try {
+            DBAccess db = new DBAccess();
+            int rowsAffected = db.executeUpdate(sql);
+            System.out.println(rowsAffected);
+        } catch(SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
     
     @Override

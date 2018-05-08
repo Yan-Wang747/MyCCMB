@@ -41,14 +41,12 @@ public class AppLogin extends HttpServlet {
         boolean result = false;
        
         try {
-            DBAccess dbAccess = new DBAccess();
-            ResultSet rs = dbAccess.executeQuery(sql);
+            ResultSet rs = DBAccess.executeQuery(sql);
             while(rs.next()) {
                 if (rs.getString("email").equals(info.userID) && rs.getString("password").equals(info.password))
                     result = true;
             }
             
-            dbAccess.dispose();
         } catch (SQLException e) {
             System.err.println("sql error: " + e.getMessage());
         }

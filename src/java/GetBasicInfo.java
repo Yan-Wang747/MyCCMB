@@ -35,8 +35,7 @@ public class GetBasicInfo extends HttpServlet {
         
         try 
         {
-            DBAccess db = new DBAccess();
-            ResultSet rs = db.executeQuery(sql);
+            ResultSet rs = DBAccess.executeQuery(sql);
 
             ObjectMapper mapper = new ObjectMapper();
             BasicInfo basicInfo = null;
@@ -54,8 +53,6 @@ public class GetBasicInfo extends HttpServlet {
             }
             
             basicInfoJSON = mapper.writeValueAsString(basicInfo);
-
-            db.dispose();
         } catch (SQLException | JsonProcessingException e) {
             System.err.println("sql error/Json error: " + e.getMessage());
         } 
