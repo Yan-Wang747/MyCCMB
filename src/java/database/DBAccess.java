@@ -19,14 +19,12 @@ public class DBAccess {
     private static final String dbURL = "jdbc:mysql://localhost/users?useLegacyDatetimeCode=false&serverTimezone=Australia/Melbourne";
     private Connection conn;
     
-    public DBAccess() {
+    public DBAccess() throws SQLException {
         try {
             Class.forName(driver);
             conn = DriverManager.getConnection(dbURL, user, pswd);
         } catch (ClassNotFoundException e) {
             System.err.println("driver error: " + e.getMessage());
-        } catch (SQLException e) {
-            System.err.println("database connection error: " + e.getMessage());
         }
     }
     

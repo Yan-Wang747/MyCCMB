@@ -32,11 +32,11 @@ public class GetBasicInfo extends HttpServlet {
      */
     private final String sql = "SELECT * FROM BasicInfo";
     
-    private String getBasicInfoJSON(String userID, DBAccess db) {
+    private String getBasicInfoJSON(String userID) {
         String basicInfoJSON = null;
         
         try 
-        {
+        {   DBAccess db = (DBAccess)this.getServletContext().getAttribute("db");
             ResultSet rs = db.executeQuery(sql);
 
             ObjectMapper mapper = new ObjectMapper();
@@ -76,8 +76,8 @@ public class GetBasicInfo extends HttpServlet {
         
         HttpSession session = request.getSession();
         String userID = (String)session.getAttribute("userID");
-        DBAccess db = (DBAccess)session.getAttribute("db");
-        String JSONBody = getBasicInfoJSON(userID, db);
+
+        String JSONBody = getBasicInfoJSON(userID);
         PrintWriter bodyWriter = response.getWriter();
 
         bodyWriter.print(JSONBody);

@@ -6,6 +6,7 @@ package endpoint;
  * and open the template in the editor.
  */
 
+import support.AuthInfo;
 import database.DBAccess;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -38,18 +39,13 @@ public class AppLogin extends HttpServlet {
      */
     
     private String sql = "SELECT * FROM AccountInfo";
-    private DBAccess db;
-    
-    @Override
-    public void init() {
-        db = new DBAccess();
-        System.out.println("database is connected.");
-    }
     
     private boolean authenticate(AuthInfo info) {
         boolean result = false;
        
         try {
+            DBAccess db = (DBAccess)this.getServletContext().getAttribute("db");
+            
             ResultSet rs = db.executeQuery(sql);
             while(rs.next()) {
                 if (rs.getString("email").equals(info.userID) && rs.getString("password").equals(info.password))
@@ -57,7 +53,7 @@ public class AppLogin extends HttpServlet {
             }
             
         } catch (SQLException e) {
-            System.err.println("database error: " + e.getMessage());
+            System.err.println("database access error: " + e.getMessage());
         }
         
         return result;
@@ -84,7 +80,6 @@ public class AppLogin extends HttpServlet {
         if(authenticate(info)) {
             HttpSession session = request.getSession();
             session.setAttribute("userID", info.userID);
-            session.setAttribute("db", db);
         } else 
             response.sendError(403);
 
@@ -113,14 +108,4 @@ public class AppLogin extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
-    @Override
-    public void destroy() {
-        try{
-            db.close();
-            System.out.println("database connection is closed");
-        } catch (SQLException e){
-            System.err.println("closing database error: " + e.getMessage());
-        }
-    }
 }

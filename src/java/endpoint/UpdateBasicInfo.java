@@ -78,9 +78,11 @@ public class UpdateBasicInfo extends HttpServlet {
         response.sendError(400);
     }
     
-    void update(BasicInfoField updateField, DBAccess db) {
+    void update(BasicInfoField updateField) {
         String sql = baseSQL + dataBaseFieldNames.get(updateField.field) + "=" + "'" + updateField.newValue + "'";
         try {
+            DBAccess db = (DBAccess)this.getServletContext().getAttribute("db");
+            
             int rowsAffected = db.executeUpdate(sql);
             System.out.println(rowsAffected);
         } catch(SQLException e) {
@@ -100,14 +102,13 @@ public class UpdateBasicInfo extends HttpServlet {
         
         HttpSession session = request.getSession();
         String userID = (String)session.getAttribute("userID");
-        DBAccess db = (DBAccess)session.getAttribute("db");
         BufferedReader reader = request.getReader();
         
         String JSONBody = reader.readLine();
         ObjectMapper mapper = new ObjectMapper();
         
         BasicInfoField updateField = mapper.readValue(JSONBody, BasicInfoField.class);
-        update(updateField, db);
+        update(updateField);
     }
 
     /**
