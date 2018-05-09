@@ -17,26 +17,30 @@ public class DBAccess {
     private static final String user = "root";
     private static final String pswd= "12345678";
     private static final String dbURL = "jdbc:mysql://localhost/users?useLegacyDatetimeCode=false&serverTimezone=Australia/Melbourne";
-    private static Connection conn;
+    private Connection conn;
     
-    
-    static {
+    public DBAccess() {
         try {
             Class.forName(driver);
             conn = DriverManager.getConnection(dbURL, user, pswd);
-        } catch (ClassNotFoundException | SQLException e) {
-            System.err.println("error: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.err.println("driver error: " + e.getMessage());
+        } catch (SQLException e) {
+            System.err.println("database connection error: " + e.getMessage());
         }
     }
     
-    
-    public static ResultSet executeQuery(String sql) throws SQLException {
+    public ResultSet executeQuery(String sql) throws SQLException {
         Statement smt = conn.createStatement();
         return smt.executeQuery(sql);
     }
     
-    public static int executeUpdate(String sql) throws SQLException {
+    public int executeUpdate(String sql) throws SQLException {
         Statement smt = conn.createStatement();
         return smt.executeUpdate(sql);
+    }
+    
+    public void close() throws SQLException {
+        conn.close();
     }
 }

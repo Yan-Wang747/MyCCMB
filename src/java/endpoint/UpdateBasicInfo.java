@@ -1,3 +1,5 @@
+package endpoint;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -76,14 +78,13 @@ public class UpdateBasicInfo extends HttpServlet {
         response.sendError(400);
     }
     
-    void update(BasicInfoField updateField) {
+    void update(BasicInfoField updateField, DBAccess db) {
         String sql = baseSQL + dataBaseFieldNames.get(updateField.field) + "=" + "'" + updateField.newValue + "'";
         try {
-            DBAccess db = new DBAccess();
             int rowsAffected = db.executeUpdate(sql);
             System.out.println(rowsAffected);
         } catch(SQLException e) {
-            System.out.println(e.getMessage());
+            System.err.println("update database error: " + e.getMessage());
         }
     }
     
@@ -99,13 +100,14 @@ public class UpdateBasicInfo extends HttpServlet {
         
         HttpSession session = request.getSession();
         String userID = (String)session.getAttribute("userID");
+        DBAccess db = (DBAccess)session.getAttribute("db");
         BufferedReader reader = request.getReader();
         
         String JSONBody = reader.readLine();
         ObjectMapper mapper = new ObjectMapper();
         
         BasicInfoField updateField = mapper.readValue(JSONBody, BasicInfoField.class);
-        update(updateField);
+        update(updateField, db);
     }
 
     /**

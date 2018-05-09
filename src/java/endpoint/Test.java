@@ -3,18 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package endpoint;
 
-import database.DBAccess;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.*;
-import java.sql.*;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  *
  * @author student
  */
-public class AppLogin extends HttpServlet {
+public class Test extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -24,6 +26,23 @@ public class AppLogin extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet Test</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet Test at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -34,50 +53,10 @@ public class AppLogin extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    private String sql = "SELECT * FROM AccountInfo";
-    
-    private boolean authenticate(AuthInfo info) {
-        boolean result = false;
-       
-        try {
-            ResultSet rs = DBAccess.executeQuery(sql);
-            while(rs.next()) {
-                if (rs.getString("email").equals(info.userID) && rs.getString("password").equals(info.password))
-                    result = true;
-            }
-            
-        } catch (SQLException e) {
-            System.err.println("sql error: " + e.getMessage());
-        }
-        
-        return result;
-    }
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        String authString = request.getHeader("authorization");
-        if (authString == null) {
-            response.sendError(401);
-            
-            return;
-        }
-        
-        AuthInfo info = new AuthInfo(authString);
-        if (!info.type.equals("Basic")) {
-            response.sendError(401, "Please use basic method.");
-            
-            return;
-        }
-        
-        if(authenticate(info)) {
-            HttpSession session = request.getSession();
-            session.setAttribute("userID", info.userID);
-        } else 
-            response.sendError(403);
-
+        processRequest(request, response);
     }
 
     /**
@@ -91,7 +70,7 @@ public class AppLogin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        processRequest(request, response);
     }
 
     /**

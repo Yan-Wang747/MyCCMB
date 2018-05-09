@@ -1,3 +1,5 @@
+package endpoint;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -30,12 +32,12 @@ public class GetBasicInfo extends HttpServlet {
      */
     private final String sql = "SELECT * FROM BasicInfo";
     
-    private String getBasicInfoJSON(String userID) {
+    private String getBasicInfoJSON(String userID, DBAccess db) {
         String basicInfoJSON = null;
         
         try 
         {
-            ResultSet rs = DBAccess.executeQuery(sql);
+            ResultSet rs = db.executeQuery(sql);
 
             ObjectMapper mapper = new ObjectMapper();
             BasicInfo basicInfo = null;
@@ -43,19 +45,22 @@ public class GetBasicInfo extends HttpServlet {
             while(rs.next()) {
                 if(rs.getString("email").equals(userID)) {
                     basicInfo = new BasicInfo(rs.getString("first_name"), 
-                                                rs.getString("last_name"),
-                                                rs.getString("gender"),
-                                                rs.getString("date_of_birth"),
-                                                rs.getString("phone"), 
-                                                rs.getString("email"));
+                                              rs.getString("last_name"),
+                                              rs.getString("gender"),
+                                              rs.getString("date_of_birth"),
+                                              rs.getString("phone"), 
+                                              rs.getString("email"));
                     break;
                 }
             }
             
-            basicInfoJSON = mapper.writeValueAsString(basicInfo);
-        } catch (SQLException | JsonProcessingException e) {
-            System.err.println("sql error/Json error: " + e.getMessage());
-        } 
+            if(basicInfo != null)
+                basicInfoJSON = mapper.writeValueAsString(basicInfo);
+        } catch (SQLException e) {
+            System.err.println("database error: " + e.getMessage());
+        } catch (JsonProcessingException e) {
+            System.err.println("Json error: " + e.getMessage());
+        }
         
         return basicInfoJSON;
     }
@@ -71,7 +76,8 @@ public class GetBasicInfo extends HttpServlet {
         
         HttpSession session = request.getSession();
         String userID = (String)session.getAttribute("userID");
-        String JSONBody = getBasicInfoJSON(userID);
+        DBAccess db = (DBAccess)session.getAttribute("db");
+        String JSONBody = getBasicInfoJSON(userID, db);
         PrintWriter bodyWriter = response.getWriter();
 
         bodyWriter.print(JSONBody);
