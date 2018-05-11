@@ -4,39 +4,40 @@
         <servlet-name>AppLogin</servlet-name>
         <servlet-class>endpoint.AppLogin</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>GetBasicInfo</servlet-name>
         <servlet-class>endpoint.GetBasicInfo</servlet-class>
     </servlet>
-    
     <servlet>
         <servlet-name>UpdateBasicInfo</servlet-name>
         <servlet-class>endpoint.UpdateBasicInfo</servlet-class>
     </servlet>
-    
+    <servlet>
+        <servlet-name>UpdateTobacco</servlet-name>
+        <servlet-class>endpoint.UpdateTobacco</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AppLogin</servlet-name>
         <url-pattern>/AppLogin</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>GetBasicInfo</servlet-name>
         <url-pattern>/GetBasicInfo</url-pattern>
     </servlet-mapping>
-    
     <servlet-mapping>
         <servlet-name>UpdateBasicInfo</servlet-name>
         <url-pattern>/UpdateBasicInfo</url-pattern>
     </servlet-mapping>
-
+    <servlet-mapping>
+        <servlet-name>UpdateTobacco</servlet-name>
+        <url-pattern>/UpdateTobacco</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             3600
         </session-timeout>
     </session-config>
-
-    <listener> 
-        <listener-class>listener.LifeCycleListener</listener-class> 
-    </listener>  
+    <listener>
+        <listener-class>listener.LifeCycleListener</listener-class>
+    </listener>
 </web-app>
