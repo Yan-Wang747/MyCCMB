@@ -3,14 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package support;
+package endpoint;
 
 import database.DBAccess;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,8 +21,7 @@ import java.sql.SQLException;
  *
  * @author student
  */
-@WebServlet(name = "Info", urlPatterns = {"/Info"})
-public class BaseEndpoint extends HttpServlet {
+public class AbstractEndpoint extends HttpServlet {
     
     //abstract function, subclass will override it to provide the column name
     protected String columnName() {
@@ -51,9 +49,10 @@ public class BaseEndpoint extends HttpServlet {
                 "where ID = '" + userID + "'";
     }
     
-    //abstract function, subclass will override it to provide sql to update records
     protected String createSql(String userID, String jsonData) {
-        return null;
+        String tableName = tableName();
+        
+        return "insert into " + tableName + " values ('" + userID + "', '" + jsonData + "')";
     }
     
     private String getInfo(String userID) {

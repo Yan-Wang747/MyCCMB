@@ -7,17 +7,14 @@ package endpoint;
 
 import database.DBAccess;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Base64;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import support.LoginInfo;
 
 /**
  *
@@ -25,6 +22,27 @@ import support.LoginInfo;
  */
 public class Login extends HttpServlet {
 
+    private class LoginInfo {
+        public final String userID;
+        public final String password;
+        public final String authType;
+
+        public LoginInfo(String authString) throws UnsupportedEncodingException {
+            authString = authString.trim();
+            int spaceIndex = authString.indexOf(' ');
+            authType = authString.substring(0, spaceIndex);
+
+            String encodedLoginInfo = authString.substring(spaceIndex + 1);
+            byte[] decodedLoginInfo = Base64.getDecoder().decode(encodedLoginInfo);
+
+            String loginInfo = new String(decodedLoginInfo, "UTF-8");
+
+            int semicolunIndex = loginInfo.indexOf(":");
+            userID = loginInfo.substring(0, semicolunIndex);
+            password = loginInfo.substring(semicolunIndex + 1);
+
+        }
+    }
 
     private boolean isIDInfoValid(LoginInfo info) {
         boolean result = false;

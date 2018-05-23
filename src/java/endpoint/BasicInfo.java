@@ -5,13 +5,11 @@
  */
 package endpoint;
 
-import support.BaseEndpoint;
-
 /**
  *
  * @author student
  */
-public class BasicInfo extends BaseEndpoint {
+public class BasicInfo extends AbstractEndpoint {
     
     @Override
     protected String columnName() {

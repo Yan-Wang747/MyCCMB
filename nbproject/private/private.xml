@@ -7,10 +7,8 @@
             <file>file:/Users/student/Desktop/MyCCMB/web/WEB-INF/web.xml</file>
             <file>file:/Users/student/Desktop/MyCCMB/src/java/listener/LifeCycleListener.java</file>
             <file>file:/Users/student/Desktop/MyCCMB/src/java/database/DBAccess.java</file>
-            <file>file:/Users/student/Desktop/MyCCMB/src/java/support/BaseEndpoint.java</file>
+            <file>file:/Users/student/Desktop/MyCCMB/src/java/endpoint/AbstractEndpoint.java</file>
             <file>file:/Users/student/Desktop/MyCCMB/src/java/endpoint/BasicInfo.java</file>
-            <file>file:/Users/student/Desktop/MyCCMB/src/java/endpoint/TobaccoInfo.java</file>
-            <file>file:/Users/student/Desktop/MyCCMB/src/java/support/LoginInfo.java</file>
         </group>
     </open-files>
 </project-private>
