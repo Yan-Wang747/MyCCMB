@@ -5,19 +5,71 @@
  */
 package endpoint;
 
+import database.DBAccess;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import support.LoginInfo;
 
 /**
  *
  * @author student
  */
-public class UpdateTobacco extends HttpServlet {
+public class Login extends HttpServlet {
 
+
+    private boolean isIDInfoValid(LoginInfo info) {
+        boolean result = false;
+
+        try {
+            DBAccess db = (DBAccess)this.getServletContext().getAttribute("db");
+            String sql = "select exists (select * from Account where ID = '" + info.userID + "' and password = '" + info.password + "')";
+        
+            ResultSet res = db.executeQuery(sql);
+            res.next();
+            
+            return res.getInt(1) == 1;
+ 
+        } catch (SQLException e) {
+            System.err.println("database access error: " + e.getMessage());
+        }
+        
+        return result;
+    }
+    
+    private void authorize(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        String authString = request.getHeader("Authorization");
+        
+        try {
+            LoginInfo info = new LoginInfo(authString);
+            
+            if (!info.authType.toLowerCase().equals("basic")){  //check if the app using basic auth method
+                response.sendError(401, "Please use basic method.");
+                
+                return;
+            }
+            
+            if(isIDInfoValid(info)) 
+                request.getSession().setAttribute("userID", info.userID);
+            else 
+                response.sendError(403, "Incorrect user name/password");
+            
+
+        } catch (UnsupportedEncodingException e) {
+            response.sendError(403, "Unspported encoding");
+        }
+    }
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -29,18 +81,11 @@ public class UpdateTobacco extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet UpdateTobacco</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet UpdateTobacco at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        if ("GET".equals(request.getMethod())) {
+            authorize(request, response);
+        } else {
+            response.sendError(405);
         }
     }
 

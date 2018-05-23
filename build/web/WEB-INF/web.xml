@@ -1,36 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>AppLogin</servlet-name>
-        <servlet-class>endpoint.AppLogin</servlet-class>
+        <servlet-name>AccessTobaccoInfo</servlet-name>
+        <servlet-class>endpoint.TobaccoInfo</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>GetBasicInfo</servlet-name>
-        <servlet-class>endpoint.GetBasicInfo</servlet-class>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>endpoint.Login</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UpdateBasicInfo</servlet-name>
-        <servlet-class>endpoint.UpdateBasicInfo</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>UpdateTobacco</servlet-name>
-        <servlet-class>endpoint.UpdateTobacco</servlet-class>
+        <servlet-name>BasicInfo</servlet-name>
+        <servlet-class>endpoint.BasicInfo</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AppLogin</servlet-name>
-        <url-pattern>/AppLogin</url-pattern>
+        <servlet-name>AccessTobaccoInfo</servlet-name>
+        <url-pattern>/AccessTobaccoInfo</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>GetBasicInfo</servlet-name>
-        <url-pattern>/GetBasicInfo</url-pattern>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/Login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UpdateBasicInfo</servlet-name>
-        <url-pattern>/UpdateBasicInfo</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateTobacco</servlet-name>
-        <url-pattern>/UpdateTobacco</url-pattern>
+        <servlet-name>BasicInfo</servlet-name>
+        <url-pattern>/BasicInfo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
