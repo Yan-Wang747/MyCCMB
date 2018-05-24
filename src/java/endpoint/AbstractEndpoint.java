@@ -108,7 +108,7 @@ public class AbstractEndpoint extends HttpServlet {
         return updated;
     }
     
-    private boolean isUserValid (HttpServletRequest request) {
+    protected boolean isUserValid (HttpServletRequest request) {
         return request.isRequestedSessionIdValid();
     }
     

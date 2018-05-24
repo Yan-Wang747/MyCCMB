@@ -102,8 +102,13 @@ public class Login extends HttpServlet {
         
         if ("GET".equals(request.getMethod())) {
             authorize(request, response);
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                
+            }
         } else {
-            response.sendError(405);
+            response.sendError(405); //other methods are not allowed
         }
     }
 
