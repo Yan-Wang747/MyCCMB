@@ -45,28 +45,38 @@ public class Login extends HttpServlet {
     }
 
     private boolean isIDInfoValid(LoginInfo info) {
-        boolean result = false;
 
         try {
             DBAccess db = (DBAccess)this.getServletContext().getAttribute("db");
+            
+            if(db == null) {
+                return false;
+            }
+            
             String sql = "select exists (select * from Account where ID = '" + info.userID + "' and password = '" + info.password + "')";
-        
+
             ResultSet res = db.executeQuery(sql);
             res.next();
-            
+
             return res.getInt(1) == 1;
  
         } catch (SQLException e) {
             System.err.println("database access error: " + e.getMessage());
         }
         
-        return result;
+        return false;
     }
     
     private void authorize(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         String authString = request.getHeader("Authorization");
+        
+        if(authString == null) {
+          response.sendError(403, "No authorization information");
+          
+          return;
+        } 
         
         try {
             LoginInfo info = new LoginInfo(authString);
@@ -83,8 +93,10 @@ public class Login extends HttpServlet {
                 response.sendError(403, "Incorrect user name/password");
             
 
-        } catch (UnsupportedEncodingException e) {
+        } catch(UnsupportedEncodingException e) {
             response.sendError(403, "Unspported encoding");
+        } catch(Exception e) {
+            response.sendError(500, "Unexpected error:" + e.getMessage());
         }
     }
     

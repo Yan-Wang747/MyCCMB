@@ -23,7 +23,7 @@ public class DBAccess {
         try {
             Class.forName(driver);
             conn = DriverManager.getConnection(dbURL, user, pswd);
-        } catch (ClassNotFoundException e) {
+        } catch(ClassNotFoundException e) {
             System.err.println("driver error: " + e.getMessage());
         }
     }

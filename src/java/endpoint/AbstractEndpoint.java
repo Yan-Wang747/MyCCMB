@@ -62,13 +62,16 @@ public class AbstractEndpoint extends HttpServlet {
         
         try {
             DBAccess db = (DBAccess)this.getServletContext().getAttribute("db");
+            
             ResultSet dbRes = db.executeQuery(sql);
            
             if(dbRes.next())
                 res = dbRes.getString(columnName());
         
-        } catch (SQLException e) {
+        } catch(SQLException e) {
             System.err.println("database error: " + e.getMessage());
+        } catch(Exception e) {
+            System.err.println("unexpected error: ");
         }
             
         return res;
@@ -83,8 +86,10 @@ public class AbstractEndpoint extends HttpServlet {
            DBAccess db = (DBAccess)this.getServletContext().getAttribute("db");
            created = db.executeUpdate(sql) != 0;
            
-        } catch (SQLException e) {
+        } catch(SQLException e) {
             System.err.println("database error: " + e.getMessage());
+        } catch(Exception e) {
+            System.err.println("unexpected error: ");
         }
         
         return created;
@@ -93,16 +98,17 @@ public class AbstractEndpoint extends HttpServlet {
     private boolean updateInfo(String userID, String jsonData) {
         boolean updated = false;
         
-        String sql = updateSql(userID, jsonData);
-        
         try {
+           String sql = updateSql(userID, jsonData);
            DBAccess db = (DBAccess)this.getServletContext().getAttribute("db");
            if (db.executeUpdate(sql) == 0) {
                updated = createInfo(userID, jsonData);
            } else
                updated = true;
-        } catch (SQLException e) {
+        } catch(SQLException e) {
             System.err.println("database error: " + e.getMessage());
+        } catch(Exception e) {
+            System.err.println("unexpected error: ");
         }
         
         return updated;
@@ -152,11 +158,11 @@ public class AbstractEndpoint extends HttpServlet {
                 response.sendError(417, "Database can't create/update the record");
         }
         
-        try {
-            Thread.sleep(5000);
-        } catch(InterruptedException e) {
-            
-        }
+//        try {
+//            Thread.sleep(5000);
+//        } catch(InterruptedException e) {
+//            
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
