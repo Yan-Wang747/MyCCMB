@@ -25,7 +25,7 @@ public class AbstractEndpoint extends HttpServlet {
     
     //abstract function, subclass will override it to provide the column name
     protected String columnName() {
-        return null;
+        return "Info";
     }
     
     //abstract function, subclass will override it to provide the table name
@@ -61,11 +61,11 @@ public class AbstractEndpoint extends HttpServlet {
         String sql = getSql(userID);
         
         try {
-           DBAccess db = (DBAccess)this.getServletContext().getAttribute("db");
-           ResultSet dbRes = db.executeQuery(sql);
-           dbRes.next();
+            DBAccess db = (DBAccess)this.getServletContext().getAttribute("db");
+            ResultSet dbRes = db.executeQuery(sql);
            
-           res = dbRes.getString("BasicInfo");
+            if(dbRes.next())
+                res = dbRes.getString(columnName());
         
         } catch (SQLException e) {
             System.err.println("database error: " + e.getMessage());
@@ -136,15 +136,12 @@ public class AbstractEndpoint extends HttpServlet {
         if ("GET".equals(request.getMethod().toUpperCase())) { // get is used to retrieve records
             String jsonData = getInfo(userID);
             
-            if(jsonData == null) {
+            if(jsonData == null) 
                 response.sendError(404, "Can't find the record in database");
-                
-                return;
+            else {
+                PrintWriter bodyWriter = response.getWriter();
+                bodyWriter.print(jsonData);
             }
-            
-            PrintWriter bodyWriter = response.getWriter();
-
-            bodyWriter.print(jsonData);
             
         } else if ("POST".equals(request.getMethod().toUpperCase())) { //post is used to create/update new records
             BufferedReader reader = request.getReader();
@@ -153,6 +150,12 @@ public class AbstractEndpoint extends HttpServlet {
            
             if(!updateInfo(userID, jsonData)) 
                 response.sendError(417, "Database can't create/update the record");
+        }
+        
+        try {
+            Thread.sleep(5000);
+        } catch(InterruptedException e) {
+            
         }
     }
 

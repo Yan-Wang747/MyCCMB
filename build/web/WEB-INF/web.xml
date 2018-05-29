@@ -12,6 +12,42 @@
         <servlet-name>Logout</servlet-name>
         <servlet-class>endpoint.Logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Tobacco</servlet-name>
+        <servlet-class>endpoint.Tobacco</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Alcohol</servlet-name>
+        <servlet-class>endpoint.Alcohol</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Personal</servlet-name>
+        <servlet-class>endpoint.Personal</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Family</servlet-name>
+        <servlet-class>endpoint.Family</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Allergy</servlet-name>
+        <servlet-class>endpoint.Allergy</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Medication</servlet-name>
+        <servlet-class>endpoint.Medication</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MedicalCondition</servlet-name>
+        <servlet-class>endpoint.MedicalCondition</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Surgery</servlet-name>
+        <servlet-class>endpoint.Surgery</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Gynecology</servlet-name>
+        <servlet-class>endpoint.Gynecology</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -23,6 +59,42 @@
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/Logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Tobacco</servlet-name>
+        <url-pattern>/Tobacco</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Alcohol</servlet-name>
+        <url-pattern>/Alcohol</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Personal</servlet-name>
+        <url-pattern>/Personal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Family</servlet-name>
+        <url-pattern>/Family</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Allergy</servlet-name>
+        <url-pattern>/Allergy</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Medication</servlet-name>
+        <url-pattern>/Medication</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MedicalCondition</servlet-name>
+        <url-pattern>/MedicalCondition</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Surgery</servlet-name>
+        <url-pattern>/Surgery</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Gynecology</servlet-name>
+        <url-pattern>/Gynecology</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

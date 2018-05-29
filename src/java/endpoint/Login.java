@@ -100,16 +100,11 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        if ("GET".equals(request.getMethod())) {
+        if ("GET".equals(request.getMethod())) 
             authorize(request, response);
-            try {
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                
-            }
-        } else {
+        else 
             response.sendError(405); //other methods are not allowed
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
