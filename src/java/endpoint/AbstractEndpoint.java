@@ -25,12 +25,12 @@ public class AbstractEndpoint extends HttpServlet {
     
     //abstract function, subclass will override it to provide the column name
     protected String columnName() {
-        return "Info";
+        return null;
     }
     
     //abstract function, subclass will override it to provide the table name
     protected String tableName() {
-        return null;
+        return "Info";
     }
     
     protected String getSql(String userID) {

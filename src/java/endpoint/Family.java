@@ -12,7 +12,7 @@ package endpoint;
 public class Family extends AbstractEndpoint {
 
     @Override
-    protected String tableName() {
-        return "FamilyInfo";
+    protected String columnName() {
+        return "Family";
     }
 }

@@ -13,11 +13,6 @@ public class BasicInfo extends AbstractEndpoint {
     
     @Override
     protected String columnName() {
-        return "BasicInfo";
-    }
-    
-    @Override
-    protected String tableName() {
-        return "BasicInfo";
+        return "Basic";
     }
 }

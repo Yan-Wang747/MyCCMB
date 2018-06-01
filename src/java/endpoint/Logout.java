@@ -41,8 +41,7 @@ public class Logout extends AbstractEndpoint {
                 
             }
             
-            request.getSession().invalidate();
-                
+            request.getSession().invalidate();    
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

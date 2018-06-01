@@ -12,7 +12,7 @@ package endpoint;
 public class Allergy extends AbstractEndpoint {
     
     @Override
-    protected String tableName() {
-        return "AllergyInfo";
+    protected String columnName() {
+        return "Allergy";
     }
 }

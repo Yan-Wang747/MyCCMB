@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 public class Personal extends AbstractEndpoint {
  
     @Override
-    protected String tableName() {
-        return "PersonalInfo";
+    protected String columnName() {
+        return "Personal";
     }
 }

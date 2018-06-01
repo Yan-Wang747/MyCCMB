@@ -12,7 +12,7 @@ package endpoint;
 public class Gynecology extends AbstractEndpoint {
     
     @Override
-    protected String tableName() {
-        return "GynecologyInfo";
+    protected String columnName() {
+        return "Gynecology";
     }
 }

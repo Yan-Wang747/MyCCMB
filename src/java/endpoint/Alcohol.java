@@ -11,7 +11,7 @@ package endpoint;
 public class Alcohol extends AbstractEndpoint {
     
     @Override
-    protected String tableName() {
-        return "AlcoholInfo";
+    protected String columnName() {
+        return "Alcohol";
     }
 }
