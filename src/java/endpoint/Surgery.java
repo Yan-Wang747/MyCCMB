@@ -9,7 +9,7 @@ package endpoint;
  *
  * @author student
  */
-public class Surgery extends AbstractEndpoint {
+public class Surgery extends AbstractInfoEndpoint {
  
     @Override
     protected String columnName() {

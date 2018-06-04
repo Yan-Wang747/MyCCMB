@@ -12,14 +12,14 @@ import java.sql.*;
  *
  * @author student
  */
-public class DBAccess {
+public class DB {
     private static final String driver = "com.mysql.cj.jdbc.Driver";
     private static final String user = "root";
     private static final String pswd= "12345678";
     private static final String dbURL = "jdbc:mysql://localhost/users?useLegacyDatetimeCode=false&serverTimezone=Australia/Melbourne";
     private Connection conn;
     
-    public DBAccess() throws SQLException {
+    public DB() throws SQLException {
         try {
             Class.forName(driver);
             conn = DriverManager.getConnection(dbURL, user, pswd);

@@ -8,7 +8,7 @@ package endpoint;
  *
  * @author student
  */
-public class Alcohol extends AbstractEndpoint {
+public class Alcohol extends AbstractInfoEndpoint {
     
     @Override
     protected String columnName() {

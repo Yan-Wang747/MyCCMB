@@ -18,7 +18,7 @@ public class LifeCycleListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         ServletContext context = servletContextEvent.getServletContext();
         try {
-            DBAccess db = new DBAccess();
+            DB db = new DB();
             context.setAttribute("db", db);
             System.out.println("database is connected.");
         } catch (SQLException e) {
@@ -30,7 +30,7 @@ public class LifeCycleListener implements ServletContextListener {
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         ServletContext context = servletContextEvent.getServletContext();
         try {
-            DBAccess db = (DBAccess)context.getAttribute("db");
+            DB db = (DB)context.getAttribute("db");
             db.close();
             System.out.println("database connection is closed.");
         } catch (SQLException e) {

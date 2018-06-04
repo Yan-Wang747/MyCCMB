@@ -52,6 +52,7 @@
         <servlet-name>RegisterNewUser</servlet-name>
         <servlet-class>endpoint.RegisterNewUser</servlet-class>
     </servlet>
+
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -104,6 +105,7 @@
         <servlet-name>RegisterNewUser</servlet-name>
         <url-pattern>/RegisterNewUser</url-pattern>
     </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             3600

@@ -12,12 +12,12 @@ import java.util.Base64;
  *
  * @author student
  */
-public class UserInfo {
+public class AuthenticationInfo {
     public final String userID;
     public final String password;
     public final String authType;
 
-    public UserInfo(String authString) throws UnsupportedEncodingException {
+    public AuthenticationInfo(String authString) throws UnsupportedEncodingException {
         authString = authString.trim();
         int spaceIndex = authString.indexOf(' ');
         authType = authString.substring(0, spaceIndex);

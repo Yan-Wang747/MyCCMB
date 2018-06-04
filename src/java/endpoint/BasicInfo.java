@@ -9,7 +9,7 @@ package endpoint;
  *
  * @author student
  */
-public class BasicInfo extends AbstractEndpoint {
+public class BasicInfo extends AbstractInfoEndpoint {
     
     @Override
     protected String columnName() {

@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author student
  */
-public class Personal extends AbstractEndpoint {
+public class Personal extends AbstractInfoEndpoint {
  
     @Override
     protected String columnName() {

@@ -4,20 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/student/Desktop/MyCCMB/src/java/endpoint/Gynecology.java</file>
-            <file>file:/Users/student/Desktop/MyCCMB/src/java/endpoint/Family.java</file>
             <file>file:/Users/student/Desktop/MyCCMB/src/java/endpoint/Login.java</file>
-            <file>file:/Users/student/Desktop/MyCCMB/src/java/endpoint/Personal.java</file>
-            <file>file:/Users/student/Desktop/MyCCMB/src/java/endpoint/Medication.java</file>
-            <file>file:/Users/student/Desktop/MyCCMB/src/java/endpoint/Surgery.java</file>
-            <file>file:/Users/student/Desktop/MyCCMB/src/java/endpoint/MedicalCondition.java</file>
-            <file>file:/Users/student/Desktop/MyCCMB/src/java/endpoint/AbstractEndpoint.java</file>
-            <file>file:/Users/student/Desktop/MyCCMB/src/java/endpoint/Allergy.java</file>
+            <file>file:/Users/student/Desktop/MyCCMB/src/java/other/AuthenticationInfo.java</file>
+            <file>file:/Users/student/Desktop/MyCCMB/web/WEB-INF/web.xml</file>
             <file>file:/Users/student/Desktop/MyCCMB/src/java/endpoint/RegisterNewUser.java</file>
-            <file>file:/Users/student/Desktop/MyCCMB/web/index.html</file>
-            <file>file:/Users/student/Desktop/MyCCMB/src/java/other/UserInfo.java</file>
+            <file>file:/Users/student/Desktop/MyCCMB/src/java/database/DB.java</file>
+            <file>file:/Users/student/Desktop/MyCCMB/src/java/endpoint/AbstractInfoEndpoint.java</file>
+            <file>file:/Users/student/Desktop/MyCCMB/src/java/endpoint/AbstractEndpoint.java</file>
             <file>file:/Users/student/Desktop/MyCCMB/src/java/endpoint/BasicInfo.java</file>
-            <file>file:/Users/student/Desktop/MyCCMB/src/java/endpoint/Tobacco.java</file>
-            <file>file:/Users/student/Desktop/MyCCMB/src/java/endpoint/Alcohol.java</file>
             <file>file:/Users/student/Desktop/MyCCMB/src/java/endpoint/Logout.java</file>
         </group>
     </open-files>

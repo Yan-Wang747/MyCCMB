@@ -5,17 +5,13 @@
  */
 package endpoint;
 
-import database.DBAccess;
-import java.io.BufferedReader;
+import database.DB;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 /**
  *
@@ -23,99 +19,14 @@ import java.sql.SQLException;
  */
 public class AbstractEndpoint extends HttpServlet {
     
-    //abstract function, subclass will override it to provide the column name
-    protected String columnName() {
-        return null;
-    }
-    
-    //abstract function, subclass will override it to provide the table name
-    protected String tableName() {
-        return "Info";
-    }
-    
-    protected String getSql(String userID) {
-        String colName = columnName();
-        String tableName = tableName();
-        
-        return "select " + colName + " from " + tableName + " where ID = '" + userID + "'";
-    }
+    protected DB db = null;
 
-    
-    protected String updateSql(String userID, String jsonData) {
-        String colName = columnName();
-        String tableName = tableName();
-        
-        return "update " + tableName + " set " + colName + " = '" + jsonData + "' " + 
-                "where ID = '" + userID + "'";
+    protected void processGet(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+        response.sendError(405);
     }
     
-    protected String createSql(String userID, String jsonData) {
-        String tableName = tableName();
-        
-        return "insert into " + tableName + " values ('" + userID + "', '" + jsonData + "')";
-    }
-    
-    private String getInfo(String userID) {
-        String res = null;
-        
-        String sql = getSql(userID);
-        
-        try {
-            DBAccess db = (DBAccess)this.getServletContext().getAttribute("db");
-            
-            ResultSet dbRes = db.executeQuery(sql);
-           
-            if(dbRes.next())
-                res = dbRes.getString(columnName());
-        
-        } catch(SQLException e) {
-            System.err.println("database error: " + e.getMessage());
-        } catch(Exception e) {
-            System.err.println("unexpected error: ");
-        }
-            
-        return res;
-    }
-    
-    private boolean createInfo(String userID, String jsonData) {
-        boolean created = false;
-        
-        String sql = createSql(userID, jsonData);
-        
-        try {
-           DBAccess db = (DBAccess)this.getServletContext().getAttribute("db");
-           created = db.executeUpdate(sql) != 0;
-           
-        } catch(SQLException e) {
-            System.err.println("database error: " + e.getMessage());
-        } catch(Exception e) {
-            System.err.println("unexpected error: ");
-        }
-        
-        return created;
-    }
-    
-    private boolean updateInfo(String userID, String jsonData) {
-        boolean updated = false;
-        
-        try {
-           String sql = updateSql(userID, jsonData);
-           DBAccess db = (DBAccess)this.getServletContext().getAttribute("db");
-           if (db.executeUpdate(sql) == 0) {
-               updated = createInfo(userID, jsonData);
-           } else
-               updated = true;
-        } catch(SQLException e) {
-            System.err.println("database error: " + e.getMessage());
-        } catch(Exception e) {
-            System.err.println("unexpected error: ");
-        }
-        
-        return updated;
-    }
-    
-    protected boolean isUserValid (HttpServletRequest request) {
-        return request.isRequestedSessionIdValid();
+    protected void processPost(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
+        response.sendError(405);
     }
     
     /**
@@ -127,42 +38,28 @@ public class AbstractEndpoint extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    private void processRequest(HttpServletRequest request, HttpServletResponse response)
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        if (!isUserValid(request)) {
-            response.sendError(401);
+        try {
+            db = (DB)this.getServletContext().getAttribute("db");
             
-            return;
-        }
-        
-        HttpSession session = request.getSession();
-        String userID = (String)session.getAttribute("userID");
-        
-        if ("GET".equals(request.getMethod().toUpperCase())) { // get is used to retrieve records
-            String jsonData = getInfo(userID);
+            if(db == null)
+                throw new SQLException();
             
-            if(jsonData == null) 
-                response.sendError(404, "Can't find the record in database");
-            else {
-                PrintWriter bodyWriter = response.getWriter();
-                bodyWriter.print(jsonData);
+            if ("GET".equals(request.getMethod().toUpperCase())) { // get is used to retrieve records
+                processGet(request, response);
+
+            } else if ("POST".equals(request.getMethod().toUpperCase())) { //post is used to create/update new records
+                processPost(request, response);
             }
-            
-        } else if ("POST".equals(request.getMethod().toUpperCase())) { //post is used to create/update new records
-            BufferedReader reader = request.getReader();
-        
-            String jsonData = reader.readLine();
-           
-            if(!updateInfo(userID, jsonData)) 
-                response.sendError(417, "Database can't create/update the record");
+        } catch(SQLException e) {
+            System.err.println("database error: " + e.getLocalizedMessage());
+            response.sendError(500, "database error");
+        } catch(IOException e) {
+            System.err.println("IO error: " + e.getLocalizedMessage());
+            response.sendError(500, "IO error");
         }
-        
-//        try {
-//            Thread.sleep(5000);
-//        } catch(InterruptedException e) {
-//            
-//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
