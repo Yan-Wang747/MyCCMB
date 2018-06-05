@@ -22,12 +22,10 @@ public class Login extends AbstractEndpoint {
 
     private boolean authenticate(AuthenticationInfo info) throws SQLException {
 
-        String sql = "select exists (select * from Account where ID = '" + info.userID + "' and password = '" + info.password + "')";
+        String sql = "select * from Account where ID = '" + info.userID + "' and password = '" + info.password + "'";
 
         ResultSet res = db.executeQuery(sql);
-        res.next();
-
-        return res.getInt(1) == 1;
+        return res.next();
     }
     
     @Override

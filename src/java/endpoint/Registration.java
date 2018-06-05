@@ -33,12 +33,10 @@ public class Registration extends AbstractEndpoint {
 
     private boolean isUserExists(AuthenticationInfo info) throws SQLException {
 
-        String sql = "select exists (select * from Account where ID = '" + info.userID + "')";
+        String sql = "select * from Account where ID = '" + info.userID + "'";
 
         ResultSet res = db.executeQuery(sql);
-        res.next();
-
-        return res.getInt(1) == 1;
+        return res.next();
     }
     
     private void registerNewUser(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
