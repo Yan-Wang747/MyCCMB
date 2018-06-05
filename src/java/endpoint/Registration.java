@@ -5,6 +5,7 @@
  */
 package endpoint;
 
+import abstractendpoint.AbstractEndpoint;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;

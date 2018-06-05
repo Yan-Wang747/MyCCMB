@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package endpoint;
+package abstractendpoint;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,7 +18,7 @@ import java.sql.SQLException;
  *
  * @author student
  */
-public class AbstractInfoEndpoint extends AbstractEndpoint {
+public abstract class AbstractInfoEndpoint extends AbstractEndpoint {
     
     private String userID = null;
     

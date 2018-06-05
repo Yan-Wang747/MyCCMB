@@ -5,6 +5,7 @@
  */
 package endpoint;
 
+import abstractendpoint.AbstractEndpoint;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.ResultSet;

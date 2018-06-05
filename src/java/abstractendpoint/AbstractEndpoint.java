@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package endpoint;
+package abstractendpoint;
 
 import database.DB;
 import java.io.IOException;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author student
  */
-public class AbstractEndpoint extends HttpServlet {
+public abstract class AbstractEndpoint extends HttpServlet {
     
     protected DB db = null;
 

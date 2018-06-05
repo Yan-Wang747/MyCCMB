@@ -5,6 +5,7 @@
  */
 package endpoint;
 
+import abstractendpoint.AbstractInfoEndpoint;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.servlet.http.HttpServletRequest;

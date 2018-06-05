@@ -5,6 +5,8 @@
  */
 package endpoint;
 
+import abstractendpoint.AbstractInfoEndpoint;
+
 /**
  *
  * @author student

@@ -4,6 +4,9 @@
  * and open the template in the editor.
  */
 package endpoint;
+
+import abstractendpoint.AbstractInfoEndpoint;
+
 /**
  *
  * @author student
