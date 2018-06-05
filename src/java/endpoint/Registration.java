@@ -17,7 +17,7 @@ import other.AuthenticationInfo;
  *
  * @author student
  */
-public class RegisterNewUser extends AbstractInfoEndpoint {
+public class Registration extends AbstractEndpoint {
     
     private enum Errors {
         noError,
@@ -41,7 +41,7 @@ public class RegisterNewUser extends AbstractInfoEndpoint {
     }
     
     private void registerNewUser(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
-        String authString = request.getHeader("NewUser");
+        String authString = request.getHeader("Registration");
         
         if(authString == null) {
           response.sendError(403, "No new userID and password");
@@ -59,7 +59,6 @@ public class RegisterNewUser extends AbstractInfoEndpoint {
             createNewUser(info);
             writer.write("" + Errors.noError.ordinal());
         }
-        
     }
     
     @Override

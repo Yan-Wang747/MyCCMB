@@ -20,7 +20,10 @@ public class AuthenticationInfo {
     public AuthenticationInfo(String authString) throws UnsupportedEncodingException {
         authString = authString.trim();
         int spaceIndex = authString.indexOf(' ');
-        authType = authString.substring(0, spaceIndex);
+        if(spaceIndex > 0)
+            authType = authString.substring(0, spaceIndex);
+        else
+            authType = "N/A";
 
         String encodedLoginInfo = authString.substring(spaceIndex + 1);
         byte[] decodedLoginInfo = Base64.getDecoder().decode(encodedLoginInfo);
