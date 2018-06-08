@@ -106,7 +106,7 @@
     </servlet-mapping>
     <session-config>
         <session-timeout>
-            3600
+            30
         </session-timeout>
     </session-config>
     <listener>
