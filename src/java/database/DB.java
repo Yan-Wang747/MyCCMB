@@ -13,25 +13,21 @@ import java.sql.*;
  * @author student
  */
 public class DB {
-//    private static final String driver = "com.mysql.cj.jdbc.Driver";
-//    private static final String user = "root";
-//    private static final String pswd= "12345678";
-//    private static final String dbURL = "jdbc:mysql://localhost/users?useLegacyDatetimeCode=false&serverTimezone=Australia/Melbourne";
-    private static final String connectionUrl = "jdbc:sqlserver://SQLTST.cancercare.mb.ca\\SQL2;" +
-			"databaseName=Referral;integratedSecurity=false;";
-    private static final String user = "skunkworks";
-    private static final String password = "agp4skunk!";
-    private static final String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+    private static final String driver = "com.mysql.cj.jdbc.Driver";
+    private static final String user = "root";
+    private static final String password= "12345678";
+    private static final String connectionUrl = "jdbc:mysql://localhost/users?useLegacyDatetimeCode=false&serverTimezone=Australia/Melbourne";
+//    private static final String connectionUrl = "jdbc:sqlserver://SQLTST.cancercare.mb.ca\\SQL2;" +
+//			"databaseName=Referral;integratedSecurity=false;";
+//    private static final String user = "skunkworks";
+//    private static final String password = "agp4skunk!";
+//    private static final String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 		
     private Connection conn;
     
-    public DB() throws SQLException {
-        try {
-            Class.forName(driver);
-            conn = DriverManager.getConnection(connectionUrl, user, password);
-        } catch(ClassNotFoundException e) {
-            System.err.println("driver error: " + e.getMessage());
-        }
+    public DB() throws ClassNotFoundException, SQLException {
+        Class.forName(driver);
+        conn = DriverManager.getConnection(connectionUrl, user, password);
     }
     
     public ResultSet executeQuery(String sql) throws SQLException {

@@ -23,6 +23,8 @@ public class LifeCycleListener implements ServletContextListener {
             System.out.println("database is connected.");
         } catch (SQLException e) {
             System.err.println("database connection error: " + e.getMessage());
+        } catch (ClassNotFoundException e){
+            System.err.println("database load error: " + e.getMessage());
         }
     }
     
